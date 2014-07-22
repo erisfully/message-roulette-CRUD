@@ -6,7 +6,7 @@
 
 <% messages.each do |message| %>
 
-  <li><a href="/display"><%= message["message"]%></a></li>
+  <li><a href="/display/<%= message["id"]%>"><%= message["message"]%></a></li>
     <form method="get" action="messages/<%=message["id"]%>/edit">
       <input type="submit" value="Edit"/>
     </form>
