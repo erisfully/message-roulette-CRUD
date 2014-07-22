@@ -1,5 +1,6 @@
 require "rspec"
 require "capybara"
+require "launchy"
 
 feature "Messages" do
   scenario "As a user, I can submit a message" do
@@ -30,7 +31,7 @@ feature "Messages" do
     click_button "Submit"
 
     click_link "Edit"
-    expect(page).to have_button "Edit Message"
-    expect(page).to have_content "Hello Everyone!"
+
+    expect(page).to have_field("message", with: "Hello Everyone!")
   end
 end
