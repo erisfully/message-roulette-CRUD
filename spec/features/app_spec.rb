@@ -69,6 +69,18 @@ feature "Comments" do
 
     fill_in "comment", :with => "Hey!"
     click_button "Comment"
+
     expect(page).to have_content("Hey!")
+  end
+
+  scenario "user can click on message and see a page with just message and its comments" do
+    visit "/"
+    fill_in "Message", :with => "Hello Everyone!"
+    click_button "Submit"
+
+    fill_in "comment", :with => "Hey!"
+    click_button "Comment"
+
+
   end
 end

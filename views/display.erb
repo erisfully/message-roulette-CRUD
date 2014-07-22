@@ -1,0 +1,9 @@
+<% messages.each do |message| %>
+  <%= message["message"] %>
+<ul><% comments.each do |comment| %>
+  <% if comment["message_id"] == message["id"] %>
+    <li><%= comment["comment"] %></li>
+  <% end %>
+    </ul>
+<% end %>
+<% end %>

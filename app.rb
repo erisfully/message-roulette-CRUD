@@ -55,6 +55,13 @@ class App < Sinatra::Application
     redirect "/"
   end
 
+  get "/display" do
+    messages = @database_connection.sql("SELECT * FROM messages")
+    comments = @database_connection.sql("SELECT * FROM comments")
+
+    erb :display, locals: {messages: messages, comments: comments}
+  end
+
 
 
 end
