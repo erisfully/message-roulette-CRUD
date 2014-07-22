@@ -33,5 +33,8 @@ feature "Messages" do
     click_link "Edit"
 
     expect(page).to have_field("message", with: "Hello Everyone!")
+    fill_in"message", with: "Bye!"
+    click_button"Edit Message"
+    expect(page).to have_content "Bye!"
   end
 end

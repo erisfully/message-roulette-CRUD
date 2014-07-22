@@ -33,4 +33,9 @@ class App < Sinatra::Application
     erb :edit, locals: {message: message}
   end
 
+  patch "/messages/:id" do
+    @database_connection.sql("UPDATE messages SET message = '#{params[:message]}' WHERE id='#{params[:id]}'")
+    redirect "/"
+  end
+
 end

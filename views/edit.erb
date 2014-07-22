@@ -1,3 +1,8 @@
-<form>
-  <input name="message" value="<%=message["message"]%>"/>
+<form action="/messages/<%= message["id"] %>" method="post">
+  <label for="message">Edit:</label>
+  <input type="text" name="message" id="message" value="<%= message["message"] %>"/>
+  <input type="hidden" name="_method" value="patch"/>
+  <button>Edit Message</button>
 </form>
+
+
