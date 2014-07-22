@@ -37,4 +37,16 @@ feature "Messages" do
     click_button"Edit Message"
     expect(page).to have_content "Bye!"
   end
+  scenario "As a user, I see an error message if I enter a message > 140 characters" do
+    visit "/"
+    fill_in "Message", :with => "Hello Everyone!"
+    click_button "Submit"
+
+    click_link "Edit"
+
+    fill_in "message", :with => "a" * 141
+    click_button "Edit Message"
+
+    expect(page).to have_content("Message must be less than 140 characters.")
+  end
 end
