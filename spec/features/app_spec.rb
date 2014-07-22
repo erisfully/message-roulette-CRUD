@@ -30,7 +30,7 @@ feature "Messages" do
     fill_in "Message", :with => "Hello Everyone!"
     click_button "Submit"
 
-    click_link "Edit"
+    click_button "Edit"
 
     expect(page).to have_field("message", with: "Hello Everyone!")
     fill_in"message", with: "Bye!"
@@ -42,7 +42,7 @@ feature "Messages" do
     fill_in "Message", :with => "Hello Everyone!"
     click_button "Submit"
 
-    click_link "Edit"
+    click_button "Edit"
 
     fill_in "message", :with => "a" * 141
     click_button "Edit Message"
@@ -58,5 +58,17 @@ feature "Messages" do
     expect(page).to have_content("Hello Everyone!")
     click_button "Delete"
     expect(page).to_not have_content("Hello Everyone!")
+  end
+end
+
+feature "Comments" do
+  scenario "user can leave comments on a message" do
+    visit "/"
+    fill_in "Message", :with => "Hello Everyone!"
+    click_button "Submit"
+
+    fill_in "comment", :with => "Hey!"
+    click_button "Comment"
+    expect(page).to have_content("Hey!")
   end
 end
