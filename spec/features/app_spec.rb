@@ -5,7 +5,7 @@ feature "Messages" do
   scenario "As a user, I can submit a message" do
     visit "/"
 
-    expect(page).to have_content("Message Roullete")
+    expect(page).to have_content("Message Roulette")
 
     fill_in "Message", :with => "Hello Everyone!"
 
@@ -22,5 +22,15 @@ feature "Messages" do
     click_button "Submit"
 
     expect(page).to have_content("Message must be less than 140 characters.")
+  end
+
+  scenario "when user clicks edit he should see form with message content" do
+    visit "/"
+    fill_in "Message", :with => "Hello Everyone!"
+    click_button "Submit"
+
+    click_link "Edit"
+    expect(page).to have_button "Edit Message"
+    expect(page).to have_content "Hello Everyone!"
   end
 end
