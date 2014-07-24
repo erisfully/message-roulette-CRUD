@@ -88,13 +88,17 @@ feature "Comments" do
   end
 
 feature "likes" do
-  scenario "user can like a message" do
+  scenario "user can like and unlike a message" do
     visit "/"
 
     fill_in "Message", :with => "Hello Everyone!"
     click_button "Submit"
 
     click_button "Like"
+    expect(page).to have_content("1")
+
+    click_button "Unlike"
+    expect(page).to have_content("0")
   end
 end
 end
