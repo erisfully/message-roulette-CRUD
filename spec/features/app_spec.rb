@@ -78,9 +78,24 @@ feature "Comments" do
     fill_in "Message", :with => "Hello Everyone!"
     click_button "Submit"
 
-    fill_in "comment", :with => "Hey!"
+    fill_in "comment", :with => "Hey!!"
     click_button "Comment"
 
+    click_link "Hello Everyone!"
 
+    expect(page).to have_content("Hello Everyone!")
+    expect(page).to have_content("Hey!!")
   end
+
+feature "likes" do
+  scenario "user can like a message" do
+    visit "/"
+
+    fill_in "Message", :with => "Hello Everyone!"
+    click_button "Submit"
+
+    click_link "Hello Everyone!"
+    click_button "Like"
+  end
+end
 end
