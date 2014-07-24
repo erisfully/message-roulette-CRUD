@@ -18,13 +18,23 @@
       <input type="text" name="comment" id="comment"/>
       <button>Comment</button>
     </form>
+    <form method="post" action="/likes/<%= message["id"]%>">
+      <input type="hidden" name="_method" value="patch"/>
+      <button>Like</button>
+    </form>
 
   <% comments.each do |comment| %>
     <% if comment["message_id"] == message["id"] %>
       <%= comment["comment"] %>
      <% end %>
    <% end %>
+
+  <%= message["likes"] %>
+
 <% end %>
+
+
+
 
 
 

@@ -62,6 +62,9 @@ class App < Sinatra::Application
     erb :display, locals: {messages: messages, comments: comments}
   end
 
-
+  patch "/likes/:id" do
+    @database_connection.sql("UPDATE messages SET likes = (likes +1) WHERE id = '#{params[:id]}'")
+    redirect "/"
+  end
 
 end

@@ -94,7 +94,6 @@ feature "likes" do
     fill_in "Message", :with => "Hello Everyone!"
     click_button "Submit"
 
-    click_link "Hello Everyone!"
     click_button "Like"
   end
 end
