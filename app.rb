@@ -2,6 +2,8 @@ require "sinatra"
 require "active_record"
 require "gschool_database_connection"
 require "rack-flash"
+require "./lib/messages_table"
+require "./lib/comments_table"
 
 class App < Sinatra::Application
   enable :sessions
@@ -9,12 +11,13 @@ class App < Sinatra::Application
 
   def initialize
     super
-    @database_connection = GschoolDatabaseConnection::DatabaseConnection.establish(ENV["RACK_ENV"])
+    @message_table = MessagesTable.new(GschoolDatabaseConnection::DatabaseConnection.establish(ENV["RACK_ENV"]))
+    @comments_table = CommentsTable.new(GschoolDatabaseConnection::DatabaseConnection.establish(ENV["RACK_ENV"]))
   end
 
   get "/" do
-    messages = @database_connection.sql("SELECT * FROM messages")
-    comments = @database_connection.sql("SELECT * FROM comments")
+    messages = @message_table.all_messages
+    comments = @comments_table.all_comments
 
     erb :home, locals: {messages: messages, comments: comments}
   end
@@ -22,7 +25,7 @@ class App < Sinatra::Application
   post "/messages" do
     message = params[:message]
     if message.length <= 140
-      @database_connection.sql("INSERT INTO messages (message) VALUES ('#{message}')")
+      @message_table.create_message(params[:message])
     else
       flash[:error] = "Message must be less than 140 characters."
     end
@@ -30,7 +33,7 @@ class App < Sinatra::Application
   end
 
   get "/messages/:id/edit" do
-    message = @database_connection.sql("SELECT * FROM messages WHERE id = '#{params[:id]}'").first
+    message = @message_table.display_message(params[:id])
     erb :edit, locals: {message: message}
   end
 
@@ -56,8 +59,8 @@ class App < Sinatra::Application
   end
 
   get "/display/:id" do
-    messages = @database_connection.sql("SELECT * FROM messages WHERE id = '#{params[:id]}'")
-    comments = @database_connection.sql("SELECT * FROM comments")
+    messages = @message_table.display_message(params[:id])
+    comments = @comments_table.all_comments
 
     erb :display, locals: {messages: messages, comments: comments}
   end

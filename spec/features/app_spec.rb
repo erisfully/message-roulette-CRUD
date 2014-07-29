@@ -1,6 +1,8 @@
 require "rspec"
 require "capybara"
 require "launchy"
+require "messages_table"
+require "comments_table"
 
 feature "Messages" do
   scenario "As a user, I can submit a message" do
