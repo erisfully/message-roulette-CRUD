@@ -66,12 +66,12 @@ class App < Sinatra::Application
   end
 
   patch "/likes/:id" do
-    @database_connection.sql("UPDATE messages SET likes = (likes +1) WHERE id = '#{params[:id]}'")
+    @messages_table.like_message(params[:id])
     redirect "/"
   end
 
   patch "/unlikes/:id" do
-    @database_connection.sql("UPDATE messages SET likes = (likes -1) WHERE id = '#{params[:id]}'")
+    @messages_table.unlike_message(params[:id])
     redirect "/"
   end
 

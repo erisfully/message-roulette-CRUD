@@ -30,5 +30,13 @@ class MessagesTable
   def delete_message (id)
     database_connection.sql("DELETE FROM messages WHERE id = '#{id}'")
   end
+
+  def like_message(id)
+    @database_connection.sql("UPDATE messages SET likes = (likes +1) WHERE id = '#{id}'")
+  end
+
+  def unlike_message(id)
+    @database_connection.sql("UPDATE messages SET likes = (likes -1) WHERE id = '#{id}'")
+  end
 end
 
