@@ -54,7 +54,7 @@ class App < Sinatra::Application
   end
 
   post "/comments/:id" do
-    @database_connection.sql("INSERT INTO comments (comment, message_id) values ('#{params[:comment]}', #{params[:id]})")
+    @comments_table.add_comment(params[:comment],params[:id])
     redirect "/"
   end
 

@@ -10,4 +10,7 @@ class CommentsTable
     database_connection.sql("SELECT * FROM comments")
   end
 
+  def add_comment(comment, id)
+  database_connection.sql("INSERT INTO comments (comment, message_id) values ('#{comment}', #{id})")
+  end
 end
