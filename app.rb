@@ -33,8 +33,9 @@ class App < Sinatra::Application
   end
 
   get "/messages/:id/edit" do
-    message = @messages_table.display_message_edit(params[:id])
+    message = @messages_table.display_message(params[:id])
     erb :edit, locals: {message: message}
+    # puts message
   end
 
   patch "/messages/:id" do

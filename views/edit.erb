@@ -1,7 +1,9 @@
+<% message.each do|message|%>
 <form action="/messages/<%= message["id"] %>" method="post">
   <input type="text" name="message" id="message" value="<%= message["message"] %>"/>
   <input type="hidden" name="_method" value="patch"/>
   <button>Edit Message</button>
 </form>
 
+<%end%>
 
